@@ -379,18 +379,18 @@ sup { font-size: 0.55em; vertical-align: super; }
 .hero-nav-item:hover,
 .hero-nav-item:focus-visible { color: var(--gold); outline: none; }
 
-/* Mobile: tight cluster high on the hero, just under the header */
-#nav-menu    { top: 12%; left: 16%; animation: hero-pulse 3.2s ease-in-out infinite 0s;   }
-#nav-story   { top: 10%; left: 44%; animation: hero-pulse 4.1s ease-in-out infinite 0.8s; }
-#nav-awards  { top: 15%; left: 56%; animation: hero-pulse 3.7s ease-in-out infinite 1.6s; }
-#nav-whatson { top: 17%; left: 28%; animation: hero-pulse 4.5s ease-in-out infinite 0.4s; }
+/* Mobile: tight cluster in the upper-middle of the hero */
+#nav-menu    { top: 24%; left: 16%; animation: hero-pulse 3.2s ease-in-out infinite 0s;   }
+#nav-story   { top: 22%; left: 44%; animation: hero-pulse 4.1s ease-in-out infinite 0.8s; }
+#nav-awards  { top: 27%; left: 56%; animation: hero-pulse 3.7s ease-in-out infinite 1.6s; }
+#nav-whatson { top: 29%; left: 28%; animation: hero-pulse 4.5s ease-in-out infinite 0.4s; }
 
 @media (min-width: 768px) {
   .hero-nav-item { font-size: 0.65rem; letter-spacing: 0.3em; }
-  #nav-menu    { top: 13%; left: 33%; }
-  #nav-story   { top: 11%; left: 44%; }
-  #nav-awards  { top: 14%; left: 55%; }
-  #nav-whatson { top: 17%; left: 42%; }
+  #nav-menu    { top: 25%; left: 33%; }
+  #nav-story   { top: 23%; left: 44%; }
+  #nav-awards  { top: 26%; left: 55%; }
+  #nav-whatson { top: 29%; left: 42%; }
 }
 
 @keyframes hero-pulse {
@@ -423,7 +423,7 @@ sup { font-size: 0.55em; vertical-align: super; }
 /* Address: upper-left, below the nav cluster */
 .hero-eyebrow {
   position: absolute;
-  top: 26%;
+  top: 38%;
   left: 6%;
   font-family: var(--font-sans);
   font-size: 0.6rem;
@@ -436,7 +436,7 @@ sup { font-size: 0.55em; vertical-align: super; }
 /* Headline: dead centre */
 .hero-title {
   position: absolute;
-  top: 50%;
+  top: 54%;
   left: 0;
   right: 0;
   transform: translateY(-50%);
@@ -471,7 +471,7 @@ sup { font-size: 0.55em; vertical-align: super; }
 .hero-sub-2 { bottom: 9%; }
 
 @media (min-width: 768px) {
-  .hero-eyebrow { top: 30%; left: 7%; }
+  .hero-eyebrow { top: 40%; left: 7%; }
   .hero-sub {
     bottom: 11%;
     left: 4%;
