@@ -186,7 +186,7 @@ sup { font-size: 0.55em; vertical-align: super; }
 .header-logo:focus-visible .logo-text { color: var(--gold); }
 
 .logo-img {
-  height: 42px;
+  height: 84px;
   width: auto;
   display: block;
   transition: transform var(--ease);
@@ -215,7 +215,7 @@ sup { font-size: 0.55em; vertical-align: super; }
   .site-header { padding: 1.5rem 3rem; }
   .site-header.scrolled { padding: 1rem 3rem; }
   .logo-text { font-size: 1.6rem; }
-  .logo-img { height: 54px; }
+  .logo-img { height: 108px; }
   .btn-reservation { font-size: 0.63rem; padding: 0.65rem 1.5rem; }
 }
 
