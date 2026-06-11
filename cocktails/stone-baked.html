@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stone Baked — Lab 22 Cardiff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .cocktail-hero {
+      position: relative;
+      height: 100svh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .cocktail-hero-img {
+      position: absolute;
+      inset: 0;
+    }
+    .cocktail-hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .cocktail-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(8,8,8,0.35) 0%,
+        rgba(8,8,8,0.25) 40%,
+        rgba(8,8,8,0.8) 100%
+      );
+      z-index: 1;
+    }
+    .cocktail-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1.5rem 7vh;
+      width: 100%;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,245,240,0.55);
+      margin-bottom: 1.5rem;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover { color: var(--gold); }
+    .cocktail-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--white);
+    }
+    .cocktail-hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .cocktail-body {
+      background: var(--black);
+      padding: 4rem 1.5rem;
+    }
+    .cocktail-body-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .cocktail-ingredients ul {
+      list-style: none;
+      margin-top: 1.2rem;
+    }
+    .cocktail-ingredients li {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(245,245,240,0.75);
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(201,165,90,0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .cocktail-ingredients li::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cocktail-description p {
+      font-family: var(--font-serif);
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(245,245,240,0.85);
+    }
+    .cocktail-gallery {
+      background: var(--deep);
+      padding: 2rem 1.5rem 4rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .gallery-grid img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+    }
+    @media (min-width: 768px) {
+      .cocktail-hero-content { padding: 0 4rem 8vh; }
+      .cocktail-body { padding: 6rem 4rem; }
+      .cocktail-body-inner {
+        grid-template-columns: 280px 1fr;
+        gap: 5rem;
+        align-items: start;
+      }
+      .cocktail-gallery { padding: 2rem 4rem 6rem; }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header scrolled" id="site-header">
+    <a href="/" class="header-logo" aria-label="Lab 22 Home">
+      <span class="logo-text">LAB<sup>22</sup></span>
+    </a>
+    <a href="/#reservations" class="btn-reservation">Make a Reservation</a>
+  </header>
+
+  <!-- COCKTAIL HERO -->
+  <section class="cocktail-hero">
+    <div class="cocktail-hero-img">
+      <img src="https://res.cloudinary.com/duxn1mxq5/image/upload/v1781178494/Screenshot_2026-06-11_124722_ldgejh.png" alt="Stone Baked cocktail">
+    </div>
+    <div class="cocktail-hero-overlay"></div>
+    <div class="cocktail-hero-content">
+      <a href="/" class="back-link">← Back to Menu</a>
+      <p class="section-eyebrow">Mezcal</p>
+      <h1 class="cocktail-hero-title">Stone<br><em>Baked</em></h1>
+    </div>
+  </section>
+
+  <!-- COCKTAIL BODY -->
+  <section class="cocktail-body">
+    <div class="cocktail-body-inner">
+      <div class="cocktail-ingredients" data-reveal>
+        <p class="section-eyebrow">Ingredients</p>
+        <ul>
+          <li>Corte Vetusto Mezcal</li>
+          <li>Pineapple</li>
+          <li>Basil</li>
+          <li>Soda</li>
+        </ul>
+      </div>
+      <div class="cocktail-description" data-reveal>
+        <p>All the fruity of a cocktail on a white sand beach somewhere luxurious (Barry Island) with all the aromatic funk of the Mediterranean (so basically Barry). It's long. It's light. It's sure to keep you going through the gorgeous nights to come.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="cocktail-gallery">
+    <div class="gallery-grid">
+      <img src="https://res.cloudinary.com/duxn1mxq5/image/upload/v1781178494/Screenshot_2026-06-11_124722_ldgejh.png" alt="Stone Baked" loading="lazy">
+      <img src="https://res.cloudinary.com/duxn1mxq5/image/upload/v1781178492/Screenshot_2026-06-11_124714_n25wmk.png" alt="Stone Baked" loading="lazy">
+      <img src="https://res.cloudinary.com/duxn1mxq5/image/upload/v1781178491/Screenshot_2026-06-11_124707_lldoie.png" alt="Stone Baked" loading="lazy">
+    </div>
+  </section>
+
+  <!-- RESERVATION CTA -->
+  <section class="reservation-section" id="reservations">
+    <div class="reservation-content" data-reveal>
+      <p class="section-eyebrow">Reservations</p>
+      <h2 class="section-title">Reserve<br>Your Experiment</h2>
+      <p class="reservation-address">22 Caroline Street · Cardiff · CF10 1FG</p>
+      <a href="https://www.lab22cardiff.com/contact/" class="btn-gold btn-large" target="_blank" rel="noopener">Make a Reservation</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text footer-logo">LAB<sup>22</sup></span>
+        <p>A prevalence towards the<br>different and the daring.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/#cocktails">Menu</a>
+        <a href="/#story">Our Story</a>
+        <a href="/#awards">Awards</a>
+        <a href="/#whats-on">What's On</a>
+        <a href="/#reservations">Reservations</a>
+      </nav>
+      <div class="footer-info">
+        <address>22 Caroline Street<br>Cardiff, CF10 1FG</address>
+        <p class="footer-hours">
+          <strong>Sun – Fri</strong> 5pm – 2am<br>
+          <strong>Saturday</strong> 2pm – 2:30am
+        </p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/lab22cardiff/" target="_blank" rel="noopener">Instagram</a>
+          <a href="#" target="_blank" rel="noopener">Facebook</a>
+          <a href="#" target="_blank" rel="noopener">X</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Lab 22 Cardiff. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const els = document.querySelectorAll('[data-reveal]');
+      if (!window.IntersectionObserver) { els.forEach(el => el.classList.add('revealed')); return; }
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(el => obs.observe(el));
+    }());
+  </script>
+</body>
+</html>
