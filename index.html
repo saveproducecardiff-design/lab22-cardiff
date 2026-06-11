@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 22 — Cardiff's Award-Winning Cocktail Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header" id="site-header">
+    <a href="/" class="header-logo" aria-label="Lab 22 Home">
+      <span class="logo-text">LAB<sup>22</sup></span>
+      <!-- Swap for: <img src="images/logo-einstein.svg" alt="Lab 22" class="logo-img"> -->
+    </a>
+    <a href="#reservations" class="btn-reservation">Make a Reservation</a>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="home">
+
+    <!-- Rotating background slides -->
+    <div class="hero-slides" aria-hidden="true">
+      <div class="hero-slide active">
+        <div class="img-placeholder">
+          <span class="img-label">IMAGE 1</span>
+          <span class="img-spec">1920 × 1080px</span>
+        </div>
+      </div>
+      <div class="hero-slide">
+        <div class="img-placeholder">
+          <span class="img-label">IMAGE 2</span>
+          <span class="img-spec">1920 × 1080px</span>
+        </div>
+      </div>
+      <div class="hero-slide">
+        <div class="img-placeholder">
+          <span class="img-label">IMAGE 3</span>
+          <span class="img-spec">1920 × 1080px</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gradient overlay -->
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- Floating scattered nav -->
+    <nav class="hero-nav" aria-label="Main navigation">
+      <a href="#cocktails"  class="hero-nav-item" id="nav-menu">MENU</a>
+      <a href="#story"      class="hero-nav-item" id="nav-story">OUR STORY</a>
+      <a href="#awards"     class="hero-nav-item" id="nav-awards">AWARDS</a>
+      <a href="#whats-on"   class="hero-nav-item" id="nav-whatson">WHAT'S ON</a>
+    </nav>
+
+    <!-- Hero copy -->
+    <div class="hero-content">
+      <p class="hero-eyebrow">22 Caroline Street · Cardiff</p>
+      <h1 class="hero-title">A prevalence towards<br><em>the different<br class="mobile-br"> and the daring</em></h1>
+      <p class="hero-sub">Inaugural Winners — World's Best Cocktail Menu 2021</p>
+    </div>
+
+    <!-- Scroll line -->
+    <div class="scroll-indicator" aria-hidden="true"><span></span></div>
+
+  </section>
+
+  <!-- ===================== AWARDS TICKER ===================== -->
+  <div class="ticker-wrap" aria-label="Awards">
+    <div class="ticker">
+      <span>World's Best Cocktail Menu 2021</span>
+      <span class="sep">✦</span>
+      <span>Top 50 Cocktail Bars — UK</span>
+      <span class="sep">✦</span>
+      <span>Drinks List of the Year — Imbibe</span>
+      <span class="sep">✦</span>
+      <span>World's Best Cocktail Menu 2021</span>
+      <span class="sep">✦</span>
+      <span>Top 50 Cocktail Bars — UK</span>
+      <span class="sep">✦</span>
+      <span>Drinks List of the Year — Imbibe</span>
+      <span class="sep">✦</span>
+    </div>
+  </div>
+
+  <!-- ===================== COCKTAILS SHOWCASE ===================== -->
+  <section class="cocktails-section" id="cocktails">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">The Menu</p>
+      <h2 class="section-title">Experiments<br>in Flavour</h2>
+      <p class="section-sub">Each drink features at least one Welsh-sourced ingredient.<br>Science has never tasted so good.</p>
+    </div>
+
+    <div class="cocktails-grid">
+
+      <div class="cocktail-card" data-reveal>
+        <div class="cocktail-img img-placeholder">
+          <span class="img-label">IMAGE 4</span>
+          <span class="img-spec">600 × 800px</span>
+        </div>
+        <div class="cocktail-info">
+          <span class="cocktail-category" style="--cat-color: #e8a87c">Popular Science</span>
+          <h3>Champagne Sours</h3>
+          <p>Crisp · Balanced · Decadent</p>
+        </div>
+      </div>
+
+      <div class="cocktail-card" data-reveal data-delay="0.15">
+        <div class="cocktail-img img-placeholder">
+          <span class="img-label">IMAGE 5</span>
+          <span class="img-spec">600 × 800px</span>
+        </div>
+        <div class="cocktail-info">
+          <span class="cocktail-category" style="--cat-color: #7ec8a0">Exotic Theory</span>
+          <h3>Exothermic Pineapples</h3>
+          <p>Smoke · Honeyed · Citrus</p>
+        </div>
+      </div>
+
+      <div class="cocktail-card" data-reveal data-delay="0.3">
+        <div class="cocktail-img img-placeholder">
+          <span class="img-label">IMAGE 6</span>
+          <span class="img-spec">600 × 800px</span>
+        </div>
+        <div class="cocktail-info">
+          <span class="cocktail-category" style="--cat-color: #a8c4e0">Heavy Elements</span>
+          <h3>Martini 22</h3>
+          <p>Sharp · Sophisticated · Savvy</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-cta" data-reveal>
+      <a href="#" class="btn-outline">View Full Menu</a>
+    </div>
+  </section>
+
+  <!-- ===================== OUR STORY ===================== -->
+  <section class="story-section" id="story">
+    <div class="story-bg img-placeholder" aria-hidden="true">
+      <span class="img-label">IMAGE 7</span>
+      <span class="img-spec">1920 × 900px</span>
+    </div>
+    <div class="story-overlay" aria-hidden="true"></div>
+    <div class="story-content" data-reveal>
+      <p class="section-eyebrow">Our Story</p>
+      <h2 class="section-title">Mixed drinks,<br>but not like you've<br><em>had them before</em></h2>
+      <p>Born from a passion for boundary-pushing mixology and a deep love for Welsh culture, Lab 22 has been Cardiff's most daring cocktail experiment since we first opened. Every drink is a formula. Every visit, a discovery.</p>
+      <a href="#" class="btn-outline">Our Philosophy</a>
+    </div>
+  </section>
+
+  <!-- ===================== AWARDS ===================== -->
+  <section class="awards-section" id="awards">
+    <div class="awards-bg img-placeholder" aria-hidden="true">
+      <span class="img-label">IMAGE 8</span>
+      <span class="img-spec">1920 × 700px</span>
+    </div>
+    <div class="awards-overlay" aria-hidden="true"></div>
+    <div class="awards-content">
+      <p class="section-eyebrow" data-reveal>Recognition</p>
+      <h2 class="section-title" data-reveal>The World<br>Has Noticed</h2>
+      <div class="awards-list">
+        <div class="award-item" data-reveal>
+          <span class="award-year">2021</span>
+          <h3>World's Best Cocktail Menu</h3>
+          <p>50 Best Bars — Inaugural Winner</p>
+        </div>
+        <div class="award-item" data-reveal data-delay="0.2">
+          <span class="award-year">2022</span>
+          <h3>Top Cocktail Bar in the UK</h3>
+          <p>Top 50 Cocktail Bars</p>
+        </div>
+        <div class="award-item" data-reveal data-delay="0.4">
+          <span class="award-year">2018</span>
+          <h3>Drinks List of the Year</h3>
+          <p>Imbibe Magazine</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT'S ON ===================== -->
+  <section class="whats-on-section" id="whats-on">
+    <div class="whats-on-bg img-placeholder" aria-hidden="true">
+      <span class="img-label">IMAGE 9</span>
+      <span class="img-spec">1920 × 900px</span>
+    </div>
+    <div class="whats-on-overlay" aria-hidden="true"></div>
+    <div class="whats-on-content" data-reveal>
+      <p class="section-eyebrow">What's On</p>
+      <h2 class="section-title">Moonshine<br><em>Mondays</em></h2>
+      <p>Every Monday night, Lab 22 transforms into a candlelit speakeasy. Low lighting, live jazz from The Bandits, and cocktails that defy expectation. Cardiff's worst-kept secret.</p>
+      <div class="event-details">
+        <span>Every Monday</span>
+        <span class="sep">·</span>
+        <span>From 5pm</span>
+        <span class="sep">·</span>
+        <span>Live Jazz</span>
+      </div>
+      <a href="#reservations" class="btn-gold">Book Your Table</a>
+    </div>
+  </section>
+
+  <!-- ===================== RESERVATION CTA ===================== -->
+  <section class="reservation-section" id="reservations">
+    <div class="reservation-content" data-reveal>
+      <p class="section-eyebrow">Reservations</p>
+      <h2 class="section-title">Reserve<br>Your Experiment</h2>
+      <p class="reservation-address">22 Caroline Street · Cardiff · CF10 1FG</p>
+      <a href="https://www.lab22cardiff.com/contact/" class="btn-gold btn-large" target="_blank" rel="noopener">Make a Reservation</a>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <span class="logo-text footer-logo">LAB<sup>22</sup></span>
+        <p>A prevalence towards the<br>different and the daring.</p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#cocktails">Menu</a>
+        <a href="#story">Our Story</a>
+        <a href="#awards">Awards</a>
+        <a href="#whats-on">What's On</a>
+        <a href="#reservations">Reservations</a>
+      </nav>
+
+      <div class="footer-info">
+        <address>
+          22 Caroline Street<br>
+          Cardiff, CF10 1FG
+        </address>
+        <p class="footer-hours">
+          <strong>Sun – Fri</strong> 5pm – 2am<br>
+          <strong>Saturday</strong> 2pm – 2:30am
+        </p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/lab22cardiff/" target="_blank" rel="noopener">Instagram</a>
+          <a href="#" target="_blank" rel="noopener">Facebook</a>
+          <a href="#" target="_blank" rel="noopener">X</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Lab 22 Cardiff. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
