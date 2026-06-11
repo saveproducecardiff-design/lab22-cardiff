@@ -379,18 +379,18 @@ sup { font-size: 0.55em; vertical-align: super; }
 .hero-nav-item:hover,
 .hero-nav-item:focus-visible { color: var(--gold); outline: none; }
 
-/* Mobile: clustered, sitting lower so the gap to the hero copy is tight */
-#nav-menu    { top: 24%; left: 8%;  animation: hero-pulse 3.2s ease-in-out infinite 0s;   }
-#nav-story   { top: 21%; left: 42%; animation: hero-pulse 4.1s ease-in-out infinite 0.8s; }
-#nav-awards  { top: 28%; left: 63%; animation: hero-pulse 3.7s ease-in-out infinite 1.6s; }
-#nav-whatson { top: 31%; left: 24%; animation: hero-pulse 4.5s ease-in-out infinite 0.4s; }
+/* Mobile: tight cluster high on the hero, just under the header */
+#nav-menu    { top: 12%; left: 16%; animation: hero-pulse 3.2s ease-in-out infinite 0s;   }
+#nav-story   { top: 10%; left: 44%; animation: hero-pulse 4.1s ease-in-out infinite 0.8s; }
+#nav-awards  { top: 15%; left: 56%; animation: hero-pulse 3.7s ease-in-out infinite 1.6s; }
+#nav-whatson { top: 17%; left: 28%; animation: hero-pulse 4.5s ease-in-out infinite 0.4s; }
 
 @media (min-width: 768px) {
   .hero-nav-item { font-size: 0.65rem; letter-spacing: 0.3em; }
-  #nav-menu    { top: 25%; left: 16%; }
-  #nav-story   { top: 21%; left: 34%; }
-  #nav-awards  { top: 26%; left: 54%; }
-  #nav-whatson { top: 30%; left: 70%; }
+  #nav-menu    { top: 13%; left: 33%; }
+  #nav-story   { top: 11%; left: 44%; }
+  #nav-awards  { top: 14%; left: 55%; }
+  #nav-whatson { top: 17%; left: 42%; }
 }
 
 @keyframes hero-pulse {
@@ -406,14 +406,11 @@ sup { font-size: 0.55em; vertical-align: super; }
   }
 }
 
-/* --- Hero content --- */
+/* --- Hero content: spread across the whole hero --- */
 .hero-content {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 10;
-  text-align: center;
-  padding: 0 1.5rem 18vh;
-  max-width: 720px;
-  width: 100%;
   will-change: transform;
   /* opacity-only entrance: transform stays free for the JS counter-parallax */
   animation: hero-content-in 1.8s ease 0.3s both;
@@ -422,29 +419,48 @@ sup { font-size: 0.55em; vertical-align: super; }
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+/* Address: upper-left, below the nav cluster */
 .hero-eyebrow {
+  position: absolute;
+  top: 26%;
+  left: 6%;
   font-family: var(--font-sans);
   font-size: 0.6rem;
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 1rem;
 }
+
+/* Headline: dead centre */
 .hero-title {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  text-align: center;
+  padding: 0 1rem;
   font-family: var(--font-serif);
   font-size: clamp(2.4rem, 9vw, 5.5rem);
   font-weight: 300;
   line-height: 1.1;
   color: var(--white);
-  margin-bottom: 1.25rem;
 }
 .hero-title em { font-style: italic; color: var(--gold-light); }
 .mobile-br { display: inline; }
 
 @media (min-width: 480px) { .mobile-br { display: none; } }
 
+/* Award lines: anchored to the bottom corners (stacked centre on mobile) */
 .hero-sub {
+  position: absolute;
+  bottom: 13%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 1.5rem;
   font-family: var(--font-sans);
   font-size: 0.62rem;
   font-weight: 400;
@@ -452,7 +468,24 @@ sup { font-size: 0.55em; vertical-align: super; }
   text-transform: uppercase;
   color: rgba(245,245,240,0.55);
 }
-.hero-sub-2 { margin-top: 0.5rem; }
+.hero-sub-2 { bottom: 9%; }
+
+@media (min-width: 768px) {
+  .hero-eyebrow { top: 30%; left: 7%; }
+  .hero-sub {
+    bottom: 11%;
+    left: 4%;
+    right: auto;
+    text-align: left;
+    max-width: 320px;
+  }
+  .hero-sub-2 {
+    bottom: 11%;
+    left: auto;
+    right: 4%;
+    text-align: right;
+  }
+}
 
 /* --- Scroll indicator --- */
 .scroll-indicator {
