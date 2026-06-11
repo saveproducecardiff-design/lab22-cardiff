@@ -185,6 +185,14 @@ sup { font-size: 0.55em; vertical-align: super; }
 .header-logo:hover .logo-text,
 .header-logo:focus-visible .logo-text { color: var(--gold); }
 
+.logo-img {
+  height: 42px;
+  width: auto;
+  display: block;
+  transition: transform var(--ease);
+}
+.header-logo:hover .logo-img { transform: scale(1.05); }
+
 .btn-reservation {
   font-family: var(--font-sans);
   font-size: 0.58rem;
@@ -207,6 +215,7 @@ sup { font-size: 0.55em; vertical-align: super; }
   .site-header { padding: 1.5rem 3rem; }
   .site-header.scrolled { padding: 1rem 3rem; }
   .logo-text { font-size: 1.6rem; }
+  .logo-img { height: 54px; }
   .btn-reservation { font-size: 0.63rem; padding: 0.65rem 1.5rem; }
 }
 
@@ -281,14 +290,16 @@ sup { font-size: 0.55em; vertical-align: super; }
   transition: opacity 2.2s ease;
   will-change: transform, opacity;
 }
-.glass-layer.active { opacity: 0.32; }
+.glass-layer.active { opacity: 0.45; }
 
 .glass-layer img {
   height: min(62vh, 560px);
   width: auto;
   max-width: 86vw;
   object-fit: contain;
-  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
+  /* saturation boost compensates for the translucency,
+     so the drink colour stays vivid while staying ghosted */
+  filter: saturate(1.65) contrast(1.06) drop-shadow(0 30px 60px rgba(0,0,0,0.7));
   animation: glass-bob 7s ease-in-out infinite;
 }
 
@@ -303,7 +314,7 @@ sup { font-size: 0.55em; vertical-align: super; }
 }
 
 @media (min-width: 768px) {
-  .glass-layer.active { opacity: 0.35; }
+  .glass-layer.active { opacity: 0.48; }
   .glass-layer img { height: min(72vh, 700px); }
 }
 
@@ -368,18 +379,18 @@ sup { font-size: 0.55em; vertical-align: super; }
 .hero-nav-item:hover,
 .hero-nav-item:focus-visible { color: var(--gold); outline: none; }
 
-/* Mobile: clustered near top, below header */
-#nav-menu    { top: 16%; left: 8%;  animation: hero-pulse 3.2s ease-in-out infinite 0s;   }
-#nav-story   { top: 13%; left: 42%; animation: hero-pulse 4.1s ease-in-out infinite 0.8s; }
-#nav-awards  { top: 20%; left: 63%; animation: hero-pulse 3.7s ease-in-out infinite 1.6s; }
-#nav-whatson { top: 23%; left: 24%; animation: hero-pulse 4.5s ease-in-out infinite 0.4s; }
+/* Mobile: clustered, sitting lower so the gap to the hero copy is tight */
+#nav-menu    { top: 24%; left: 8%;  animation: hero-pulse 3.2s ease-in-out infinite 0s;   }
+#nav-story   { top: 21%; left: 42%; animation: hero-pulse 4.1s ease-in-out infinite 0.8s; }
+#nav-awards  { top: 28%; left: 63%; animation: hero-pulse 3.7s ease-in-out infinite 1.6s; }
+#nav-whatson { top: 31%; left: 24%; animation: hero-pulse 4.5s ease-in-out infinite 0.4s; }
 
 @media (min-width: 768px) {
   .hero-nav-item { font-size: 0.65rem; letter-spacing: 0.3em; }
-  #nav-menu    { top: 17%; left: 16%; }
-  #nav-story   { top: 13%; left: 34%; }
-  #nav-awards  { top: 18%; left: 54%; }
-  #nav-whatson { top: 22%; left: 70%; }
+  #nav-menu    { top: 25%; left: 16%; }
+  #nav-story   { top: 21%; left: 34%; }
+  #nav-awards  { top: 26%; left: 54%; }
+  #nav-whatson { top: 30%; left: 70%; }
 }
 
 @keyframes hero-pulse {
@@ -400,7 +411,7 @@ sup { font-size: 0.55em; vertical-align: super; }
   position: relative;
   z-index: 10;
   text-align: center;
-  padding: 0 1.5rem 10vh;
+  padding: 0 1.5rem 18vh;
   max-width: 720px;
   width: 100%;
   will-change: transform;

@@ -11,6 +11,16 @@
   const layers = hero.querySelectorAll('[data-depth]');
 
   /* ---------- Glass carousel: crossfade one ghosted glass at a time ---------- */
+  /* Each drink carries its own dust palette; new particles spawn in the
+     active drink's colours so the speckles shift as the carousel turns. */
+  const PALETTES = [
+    ['244,138,160', '247,176,120', '232,213,163'], // pink highball: pink, orange, gold
+    ['196,228,160', '224,238,190', '232,213,163'], // nick & nora: leaf greens, gold
+    ['168,216,188', '205,175,135', '232,213,163']  // mint flip: mint, chocolate, gold
+  ];
+  let currentPalette = PALETTES[0];
+  let onPaletteChange = null; // particle system hooks in below
+
   const glasses = hero.querySelectorAll('.glass-layer');
   if (glasses.length) {
     let gi = 0;
@@ -20,6 +30,8 @@
         glasses[gi].classList.remove('active');
         gi = (gi + 1) % glasses.length;
         glasses[gi].classList.add('active');
+        currentPalette = PALETTES[gi % PALETTES.length];
+        if (onPaletteChange) onPaletteChange();
       }, 6500);
     }
   }
@@ -112,22 +124,33 @@
     const COUNT = window.matchMedia('(min-width: 768px)').matches ? 45 : 22;
 
     function spawn(randomY) {
-      // Mostly gold dust, with the occasional fainter purple speck
-      const purple = Math.random() < 0.28;
+      // Colours come from the active drink's palette, with a rare purple accent
+      const rgb = Math.random() < 0.1
+        ? '178,152,220'
+        : currentPalette[Math.floor(Math.random() * currentPalette.length)];
       return {
         x: Math.random() * w,
         y: randomY ? Math.random() * h : h + 10,
-        r: Math.random() * 1.8 + 0.4,
+        r: Math.random() * 2.2 + 0.6,
         speed: Math.random() * 0.35 + 0.12,
         drift: (Math.random() - 0.5) * 0.25,
-        alpha: (Math.random() * 0.5 + 0.15) * (purple ? 0.6 : 1),
+        alpha: Math.random() * 0.55 + 0.3,
         twinkle: Math.random() * 0.02 + 0.005,
         phase: Math.random() * Math.PI * 2,
-        rgb: purple ? '178, 152, 220' : '232, 213, 163'
+        rgb: rgb
       };
     }
 
     for (let i = 0; i < COUNT; i++) particles.push(spawn(true));
+
+    // When the carousel turns, drift most of the dust to the new drink's colours
+    onPaletteChange = function () {
+      particles.forEach(p => {
+        if (Math.random() < 0.7) {
+          p.rgb = currentPalette[Math.floor(Math.random() * currentPalette.length)];
+        }
+      });
+    };
 
     function draw(t) {
       ctx.clearRect(0, 0, w, h);
