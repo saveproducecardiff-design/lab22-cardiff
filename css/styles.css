@@ -356,18 +356,25 @@ sup { font-size: 0.55em; vertical-align: super; }
   98%, 100% { left: calc(100% + 200px); opacity: 0; }
 }
 
-/* --- Floating nav --- */
+/* --- Floating nav: one horizontal line under the header --- */
 .hero-nav {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  padding: 130px 1rem 0; /* clears the fixed header + logo */
 }
 .hero-nav-item {
-  position: absolute;
   font-family: var(--font-sans);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--white);
   cursor: pointer;
@@ -381,18 +388,15 @@ sup { font-size: 0.55em; vertical-align: super; }
 .hero-nav-item:hover,
 .hero-nav-item:focus-visible { color: var(--gold); outline: none; }
 
-/* Mobile: tight cluster in the upper-middle of the hero */
-#nav-menu    { top: 24%; left: 16%; animation: hero-pulse 3.2s ease-in-out infinite 0s;   }
-#nav-story   { top: 22%; left: 44%; animation: hero-pulse 4.1s ease-in-out infinite 0.8s; }
-#nav-awards  { top: 27%; left: 56%; animation: hero-pulse 3.7s ease-in-out infinite 1.6s; }
-#nav-whatson { top: 29%; left: 28%; animation: hero-pulse 4.5s ease-in-out infinite 0.4s; }
+/* Staggered pulse keeps them bubbling, each on its own rhythm */
+#nav-menu    { animation: hero-pulse 3.2s ease-in-out infinite 0s;   }
+#nav-story   { animation: hero-pulse 4.1s ease-in-out infinite 0.8s; }
+#nav-awards  { animation: hero-pulse 3.7s ease-in-out infinite 1.6s; }
+#nav-whatson { animation: hero-pulse 4.5s ease-in-out infinite 0.4s; }
 
 @media (min-width: 768px) {
-  .hero-nav-item { font-size: 0.65rem; letter-spacing: 0.3em; }
-  #nav-menu    { top: 25%; left: 33%; }
-  #nav-story   { top: 23%; left: 44%; }
-  #nav-awards  { top: 26%; left: 55%; }
-  #nav-whatson { top: 29%; left: 42%; }
+  .hero-nav { padding-top: 175px; gap: 0 2.5rem; }
+  .hero-nav-item { font-size: 0.72rem; letter-spacing: 0.3em; }
 }
 
 @keyframes hero-pulse {
@@ -425,7 +429,7 @@ sup { font-size: 0.55em; vertical-align: super; }
 /* Address: upper-left, below the nav cluster */
 .hero-eyebrow {
   position: absolute;
-  top: 38%;
+  top: 34%;
   left: 6%;
   font-family: var(--font-sans);
   font-size: 0.6rem;
@@ -481,7 +485,7 @@ sup { font-size: 0.55em; vertical-align: super; }
 }
 
 @media (min-width: 768px) {
-  .hero-eyebrow { top: 40%; left: 7%; }
+  .hero-eyebrow { top: 38%; left: 7%; }
   .hero-sub {
     bottom: 11%;
     left: 4%;
