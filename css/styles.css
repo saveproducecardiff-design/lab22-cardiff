@@ -452,6 +452,7 @@ sup { font-size: 0.55em; vertical-align: super; }
   text-transform: uppercase;
   color: rgba(245,245,240,0.55);
 }
+.hero-sub-2 { margin-top: 0.5rem; }
 
 /* --- Scroll indicator --- */
 .scroll-indicator {
