@@ -2,17 +2,133 @@
    LAB 22 — MAIN SCRIPT
    ================================================ */
 
-/* --- Hero image rotation --- */
-(function heroRotation() {
-  const slides = document.querySelectorAll('.hero-slide');
-  if (slides.length < 2) return;
-  let current = 0;
+/* --- Interactive hero: parallax + gyro + gold dust --- */
+(function interactiveHero() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
 
-  setInterval(() => {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-  }, 5000);
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const layers = hero.querySelectorAll('[data-depth]');
+
+  /* ---------- Parallax (mouse on desktop, tilt on mobile) ---------- */
+  if (!reducedMotion && layers.length) {
+    // target = where the input wants us; current = eased position
+    let targetX = 0, targetY = 0;
+    let curX = 0, curY = 0;
+    let running = false;
+
+    function tick() {
+      // lerp towards target for a weighty, liquid feel
+      curX += (targetX - curX) * 0.06;
+      curY += (targetY - curY) * 0.06;
+
+      layers.forEach(layer => {
+        const depth = parseFloat(layer.dataset.depth);
+        const x = curX * depth * 100;
+        const y = curY * depth * 100;
+        layer.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+      });
+
+      if (Math.abs(targetX - curX) > 0.001 || Math.abs(targetY - curY) > 0.001) {
+        requestAnimationFrame(tick);
+      } else {
+        running = false;
+      }
+    }
+
+    function setTarget(x, y) {
+      targetX = x;
+      targetY = y;
+      if (!running) { running = true; requestAnimationFrame(tick); }
+    }
+
+    const isTouch = window.matchMedia('(hover: none)').matches;
+
+    if (!isTouch) {
+      // Mouse: normalised -1..1 from hero centre
+      hero.addEventListener('mousemove', e => {
+        const r = hero.getBoundingClientRect();
+        setTarget(
+          ((e.clientX - r.left) / r.width - 0.5) * 2,
+          ((e.clientY - r.top) / r.height - 0.5) * 2
+        );
+      });
+      hero.addEventListener('mouseleave', () => setTarget(0, 0));
+    } else if (window.DeviceOrientationEvent) {
+      // Gyro tilt. iOS 13+ needs a user-gesture permission request;
+      // if it never arrives the CSS bob animation carries the hero alone.
+      const startGyro = () => {
+        window.addEventListener('deviceorientation', e => {
+          if (e.gamma === null) return;
+          setTarget(
+            Math.max(-1, Math.min(1, e.gamma / 30)),
+            Math.max(-1, Math.min(1, (e.beta - 45) / 30))
+          );
+        }, true);
+      };
+
+      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        const askOnce = () => {
+          DeviceOrientationEvent.requestPermission()
+            .then(state => { if (state === 'granted') startGyro(); })
+            .catch(() => {});
+          hero.removeEventListener('touchend', askOnce);
+        };
+        hero.addEventListener('touchend', askOnce, { once: true });
+      } else {
+        startGyro();
+      }
+    }
+  }
+
+  /* ---------- Gold particle dust ---------- */
+  const canvas = hero.querySelector('.hero-particles');
+  if (canvas && !reducedMotion) {
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let w, h;
+
+    function resize() {
+      w = canvas.width = canvas.offsetWidth;
+      h = canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const COUNT = window.matchMedia('(min-width: 768px)').matches ? 45 : 22;
+
+    function spawn(randomY) {
+      return {
+        x: Math.random() * w,
+        y: randomY ? Math.random() * h : h + 10,
+        r: Math.random() * 1.8 + 0.4,
+        speed: Math.random() * 0.35 + 0.12,
+        drift: (Math.random() - 0.5) * 0.25,
+        alpha: Math.random() * 0.5 + 0.15,
+        twinkle: Math.random() * 0.02 + 0.005,
+        phase: Math.random() * Math.PI * 2
+      };
+    }
+
+    for (let i = 0; i < COUNT; i++) particles.push(spawn(true));
+
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach((p, i) => {
+        p.y -= p.speed;
+        p.x += p.drift + Math.sin(t / 2000 + p.phase) * 0.15;
+        if (p.y < -10) particles[i] = spawn(false);
+
+        const a = p.alpha * (0.6 + 0.4 * Math.sin(t / 600 * p.twinkle * 60 + p.phase));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(232, 213, 163,' + a.toFixed(3) + ')';
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  }
 }());
 
 

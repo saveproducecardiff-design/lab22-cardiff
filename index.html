@@ -23,30 +23,32 @@
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="home">
 
-    <!-- Rotating background slides -->
-    <div class="hero-slides" aria-hidden="true">
-      <div class="hero-slide active">
-        <div class="img-placeholder">
-          <span class="img-label">IMAGE 1</span>
-          <span class="img-spec">1920 × 1080px</span>
-        </div>
+    <!-- Atmospheric background: CSS glow by default, uses images/hero-bg.jpg if present -->
+    <div class="hero-atmosphere" aria-hidden="true">
+      <img src="images/hero-bg.jpg" alt="" class="hero-bg-img" onerror="this.remove()">
+    </div>
+
+    <!-- Gold particle dust (canvas, JS-driven) -->
+    <canvas class="hero-particles" aria-hidden="true"></canvas>
+
+    <!-- Floating cocktail cutouts: each layer has its own parallax depth -->
+    <div class="hero-glasses" aria-hidden="true">
+      <div class="glass-layer glass-1" data-depth="0.06">
+        <img src="images/cocktail-1.png" alt="" onerror="this.parentElement.remove()">
       </div>
-      <div class="hero-slide">
-        <div class="img-placeholder">
-          <span class="img-label">IMAGE 2</span>
-          <span class="img-spec">1920 × 1080px</span>
-        </div>
+      <div class="glass-layer glass-2" data-depth="0.10">
+        <img src="images/cocktail-2.png" alt="" onerror="this.parentElement.remove()">
       </div>
-      <div class="hero-slide">
-        <div class="img-placeholder">
-          <span class="img-label">IMAGE 3</span>
-          <span class="img-spec">1920 × 1080px</span>
-        </div>
+      <div class="glass-layer glass-3" data-depth="0.15">
+        <img src="images/cocktail-3.png" alt="" onerror="this.parentElement.remove()">
       </div>
     </div>
 
     <!-- Gradient overlay -->
     <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- Gold shimmer sweep -->
+    <div class="hero-shimmer" aria-hidden="true"></div>
 
     <!-- Floating scattered nav -->
     <nav class="hero-nav" aria-label="Main navigation">
@@ -56,8 +58,8 @@
       <a href="#whats-on"   class="hero-nav-item" id="nav-whatson">WHAT'S ON</a>
     </nav>
 
-    <!-- Hero copy -->
-    <div class="hero-content">
+    <!-- Hero copy (counter-parallax target) -->
+    <div class="hero-content" data-depth="-0.02">
       <p class="hero-eyebrow">22 Caroline Street · Cardiff</p>
       <h1 class="hero-title">A prevalence towards<br><em>the different<br class="mobile-br"> and the daring</em></h1>
       <p class="hero-sub">Inaugural Winners — World's Best Cocktail Menu 2021</p>
