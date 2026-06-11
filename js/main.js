@@ -10,6 +10,20 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const layers = hero.querySelectorAll('[data-depth]');
 
+  /* ---------- Glass carousel: crossfade one ghosted glass at a time ---------- */
+  const glasses = hero.querySelectorAll('.glass-layer');
+  if (glasses.length) {
+    let gi = 0;
+    glasses[0].classList.add('active');
+    if (glasses.length > 1) {
+      setInterval(() => {
+        glasses[gi].classList.remove('active');
+        gi = (gi + 1) % glasses.length;
+        glasses[gi].classList.add('active');
+      }, 6500);
+    }
+  }
+
   /* ---------- Parallax (mouse on desktop, tilt on mobile) ---------- */
   if (!reducedMotion && layers.length) {
     // target = where the input wants us; current = eased position
@@ -98,15 +112,18 @@
     const COUNT = window.matchMedia('(min-width: 768px)').matches ? 45 : 22;
 
     function spawn(randomY) {
+      // Mostly gold dust, with the occasional fainter purple speck
+      const purple = Math.random() < 0.28;
       return {
         x: Math.random() * w,
         y: randomY ? Math.random() * h : h + 10,
         r: Math.random() * 1.8 + 0.4,
         speed: Math.random() * 0.35 + 0.12,
         drift: (Math.random() - 0.5) * 0.25,
-        alpha: Math.random() * 0.5 + 0.15,
+        alpha: (Math.random() * 0.5 + 0.15) * (purple ? 0.6 : 1),
         twinkle: Math.random() * 0.02 + 0.005,
-        phase: Math.random() * Math.PI * 2
+        phase: Math.random() * Math.PI * 2,
+        rgb: purple ? '178, 152, 220' : '232, 213, 163'
       };
     }
 
@@ -122,7 +139,7 @@
         const a = p.alpha * (0.6 + 0.4 * Math.sin(t / 600 * p.twinkle * 60 + p.phase));
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(232, 213, 163,' + a.toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(' + p.rgb + ',' + a.toFixed(3) + ')';
         ctx.fill();
       });
       requestAnimationFrame(draw);
