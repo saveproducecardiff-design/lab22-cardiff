@@ -290,7 +290,7 @@ sup { font-size: 0.55em; vertical-align: super; }
   transition: opacity 2.2s ease;
   will-change: transform, opacity;
 }
-.glass-layer.active { opacity: 0.45; }
+.glass-layer.active { opacity: 0.4; }
 
 .glass-layer img {
   height: min(62vh, 560px);
@@ -372,6 +372,8 @@ sup { font-size: 0.55em; vertical-align: super; }
   color: var(--white);
   cursor: pointer;
   transition: color var(--ease);
+  /* keeps the labels legible over the bright glass */
+  text-shadow: 0 1px 4px rgba(8,8,8,0.9), 0 2px 14px rgba(8,8,8,0.7);
   /* tap zone */
   padding: 0.6rem 0.4rem;
   -webkit-tap-highlight-color: transparent;
@@ -431,6 +433,7 @@ sup { font-size: 0.55em; vertical-align: super; }
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--gold);
+  text-shadow: 0 1px 6px rgba(8,8,8,0.8);
 }
 
 /* Headline: dead centre */
@@ -447,6 +450,7 @@ sup { font-size: 0.55em; vertical-align: super; }
   font-weight: 300;
   line-height: 1.1;
   color: var(--white);
+  text-shadow: 0 2px 30px rgba(8,8,8,0.55);
 }
 .hero-title em { font-style: italic; color: var(--gold-light); }
 .mobile-br { display: inline; }
@@ -456,19 +460,25 @@ sup { font-size: 0.55em; vertical-align: super; }
 /* Award lines: anchored to the bottom corners (stacked centre on mobile) */
 .hero-sub {
   position: absolute;
-  bottom: 13%;
+  bottom: 15%;
   left: 0;
   right: 0;
   text-align: center;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   font-family: var(--font-sans);
-  font-size: 0.62rem;
+  font-size: 0.55rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
+  line-height: 1.8;
   text-transform: uppercase;
   color: rgba(245,245,240,0.55);
+  text-shadow: 0 1px 6px rgba(8,8,8,0.8);
 }
-.hero-sub-2 { bottom: 9%; }
+/* second award in soft gold, clearly separated below the first */
+.hero-sub-2 {
+  bottom: 8%;
+  color: rgba(201,165,90,0.65);
+}
 
 @media (min-width: 768px) {
   .hero-eyebrow { top: 40%; left: 7%; }
@@ -478,6 +488,8 @@ sup { font-size: 0.55em; vertical-align: super; }
     right: auto;
     text-align: left;
     max-width: 320px;
+    font-size: 0.6rem;
+    padding: 0;
   }
   .hero-sub-2 {
     bottom: 11%;
