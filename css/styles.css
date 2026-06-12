@@ -484,24 +484,25 @@ sup { font-size: 0.55em; vertical-align: super; }
 /* Award lines: anchored to the bottom corners (stacked centre on mobile) */
 .hero-sub {
   position: absolute;
-  bottom: 15%;
+  bottom: 14%;
   left: 0;
   right: 0;
   text-align: center;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   font-family: var(--font-sans);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  line-height: 1.8;
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.6;
   text-transform: uppercase;
-  color: rgba(245,245,240,0.55);
-  text-shadow: 0 1px 6px rgba(8,8,8,0.8);
+  color: rgba(245,245,240,0.65);
+  text-shadow: 0 1px 6px rgba(8,8,8,0.9);
+  white-space: nowrap;
 }
 /* second award in soft gold, clearly separated below the first */
 .hero-sub-2 {
-  bottom: 8%;
-  color: rgba(201,165,90,0.65);
+  bottom: 7%;
+  color: rgba(201,165,90,0.75);
 }
 
 @media (min-width: 768px) {
@@ -511,15 +512,17 @@ sup { font-size: 0.55em; vertical-align: super; }
     left: 4%;
     right: auto;
     text-align: left;
-    max-width: 320px;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
     padding: 0;
+    white-space: nowrap;
   }
   .hero-sub-2 {
     bottom: 11%;
     left: auto;
     right: 4%;
     text-align: right;
+    white-space: nowrap;
   }
 }
 
