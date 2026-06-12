@@ -278,12 +278,24 @@ sup { font-size: 0.55em; vertical-align: super; }
   pointer-events: none;
 }
 
-/* --- Cocktail glass carousel (ghosted, behind hero text) --- */
+/* --- 3D cocktail canvas (three.js, scroll-rotated) --- */
+.hero-3d {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* --- Cocktail glass carousel — retired in favour of the 3D glass.
+       Markup + palette cycling kept (drives the dust colours). --- */
 .hero-glasses {
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
+  display: none;
 }
 /* Each layer fills the hero and centres its glass — the carousel
    crossfades between them. Centring is done with flex (not transform)

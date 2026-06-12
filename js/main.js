@@ -321,6 +321,151 @@
 }());
 
 
+/* --- 3D cocktail: procedural coupe glass, rotation bound to scroll --- */
+(function cocktail3D() {
+  const canvas = document.querySelector('.hero-3d');
+  const hero = document.querySelector('.hero');
+  if (!canvas || !hero || typeof THREE === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { canvas.remove(); return; }
+
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 50);
+  camera.position.set(0, 1.05, 4.4);
+  camera.lookAt(0, 0.85, 0);
+
+  /* ----- lights: warm gold key, purple rim, soft fill ----- */
+  scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+  const keyLight = new THREE.PointLight(0xc9a55a, 1.4, 30);
+  keyLight.position.set(2.5, 3.5, 4);
+  scene.add(keyLight);
+  const rimLight = new THREE.PointLight(0x7c5ca8, 1.1, 30);
+  rimLight.position.set(-3.5, 1.5, -2.5);
+  scene.add(rimLight);
+  const topLight = new THREE.PointLight(0xf5f5f0, 0.5, 30);
+  topLight.position.set(0, 5, 1);
+  scene.add(topLight);
+
+  /* ----- coupe glass profile (x = radius, y = height) ----- */
+  const glassPts = [
+    new THREE.Vector2(0.001, 0.00),
+    new THREE.Vector2(0.42, 0.012),
+    new THREE.Vector2(0.40, 0.04),
+    new THREE.Vector2(0.06, 0.08),
+    new THREE.Vector2(0.045, 0.85),
+    new THREE.Vector2(0.10, 0.92),
+    new THREE.Vector2(0.34, 1.02),
+    new THREE.Vector2(0.46, 1.22),
+    new THREE.Vector2(0.475, 1.45)
+  ];
+  const glassGeo = new THREE.LatheGeometry(glassPts, 64);
+  const glassMat = new THREE.MeshPhysicalMaterial({
+    color: 0xf5f5f0,
+    metalness: 0,
+    roughness: 0.06,
+    transparent: true,
+    opacity: 0.18,
+    side: THREE.DoubleSide,
+    depthWrite: false
+  });
+  const glass = new THREE.Mesh(glassGeo, glassMat);
+
+  /* ----- the drink: golden liquid sitting in the bowl ----- */
+  const liquidPts = [
+    new THREE.Vector2(0.001, 0.96),
+    new THREE.Vector2(0.20, 0.99),
+    new THREE.Vector2(0.36, 1.10),
+    new THREE.Vector2(0.435, 1.30),
+    new THREE.Vector2(0.001, 1.30)   // flat surface
+  ];
+  const liquidGeo = new THREE.LatheGeometry(liquidPts, 64);
+  const liquidMat = new THREE.MeshPhysicalMaterial({
+    color: 0xc9a55a,
+    emissive: 0x6b4f1d,
+    emissiveIntensity: 0.4,
+    metalness: 0.15,
+    roughness: 0.12,
+    transparent: true,
+    opacity: 0.92
+  });
+  const liquid = new THREE.Mesh(liquidGeo, liquidMat);
+
+  /* ----- garnish: cherry resting on the rim, with a gold pick ----- */
+  const cherry = new THREE.Mesh(
+    new THREE.SphereGeometry(0.075, 32, 32),
+    new THREE.MeshPhysicalMaterial({ color: 0x8e2c4a, roughness: 0.25, metalness: 0.1 })
+  );
+  cherry.position.set(0.33, 1.50, 0);
+
+  const pick = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.008, 0.008, 0.55, 12),
+    new THREE.MeshStandardMaterial({ color: 0xc9a55a, metalness: 0.9, roughness: 0.3 })
+  );
+  pick.position.set(0.27, 1.62, 0);
+  pick.rotation.z = 0.5;
+
+  const drink = new THREE.Group();
+  drink.add(glass, liquid, cherry, pick);
+  // centre the glass vertically in the upper-middle of the hero
+  drink.position.y = 0.12;
+  scene.add(drink);
+
+  /* ----- sizing ----- */
+  function resize() {
+    const wpx = hero.offsetWidth, hpx = hero.offsetHeight;
+    renderer.setSize(wpx, hpx, false);
+    camera.aspect = wpx / hpx;
+    // pull back a little further on narrow screens so the glass fits
+    camera.position.z = camera.aspect < 0.8 ? 5.6 : 4.4;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  /* ----- scroll-bound rotation: every pixel of scroll turns the glass ----- */
+  let targetRotY = 0, curRotY = 0;
+  function onScroll() {
+    targetRotY = window.scrollY * 0.0065; // full turn ≈ one page-height of scroll
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* mouse adds a small extra tilt — no permissions needed anywhere */
+  let targetTilt = 0, curTilt = 0;
+  hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    targetTilt = ((e.clientY - r.top) / r.height - 0.5) * 0.25;
+  }, { passive: true });
+
+  /* only render while the hero is on screen */
+  let visible = true;
+  if (window.IntersectionObserver) {
+    new IntersectionObserver(entries => { visible = entries[0].isIntersecting; },
+      { threshold: 0 }).observe(hero);
+  }
+
+  const t0 = performance.now();
+  (function frame(now) {
+    requestAnimationFrame(frame);
+    if (!visible) return;
+    const t = (now - t0) / 1000;
+
+    // ease towards the scroll-driven rotation for a weighty feel
+    curRotY += (targetRotY - curRotY) * 0.08;
+    curTilt += (targetTilt - curTilt) * 0.05;
+
+    drink.rotation.y = curRotY + t * 0.12;       // slow idle spin + scroll
+    drink.rotation.x = curTilt + Math.sin(t * 0.6) * 0.03;
+    drink.rotation.z = Math.sin(t * 0.4) * 0.02; // gentle sway
+    drink.position.y = 0.12 + Math.sin(t * 0.8) * 0.04; // float
+
+    renderer.render(scene, camera);
+  }(t0));
+}());
+
+
 /* --- Header: solid on scroll --- */
 (function headerScroll() {
   const header = document.getElementById('site-header');
